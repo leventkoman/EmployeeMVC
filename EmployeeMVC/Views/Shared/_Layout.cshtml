@@ -1,0 +1,26 @@
+﻿@using System.Web.Optimization
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html lang="tr">
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <meta charset="UTF-8" />
+    <title>_Layout</title>
+ @Styles.Render("~/bundles/css")
+   
+</head>
+<body>
+    @Html.Partial("_Navbar")
+    <div class="container">
+        @RenderBody()
+</div>
+@Scripts.Render("~/bundles/scripts")
+@RenderSection("scripts", false)
+
+</body>
+</html>

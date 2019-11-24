@@ -1,0 +1,62 @@
+﻿@using EmployeeMVC.DAL
+@model EmployeeMVC.Models.PersonelFormModels
+@{
+    ViewBag.Title = "PersonelForm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Personel Formu</h2>
+@using (Html.BeginForm("Kaydet", "Personel", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+        <div class="form-group">
+            @Html.LabelFor(p=>p.personel.Ad)
+            @Html.TextBoxFor(p=>p.personel.Ad, new { @class = "form-control" })
+            @Html.ValidationMessageFor(p => p.personel.Ad)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(p=>p.personel.Soyad)
+            @Html.TextBoxFor(p=>p.personel.Soyad, new { @class = "form-control" })
+            @Html.ValidationMessageFor(p =>p.personel.Soyad )
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(p => p.personel.DepartmanId)
+            @Html.DropDownListFor(p => p.personel.DepartmanId, new SelectList(Model.departmanlar,"Id","Ad"), "Departman Seçiniz...",new {@class="form-control"})
+            @Html.ValidationMessageFor(p => p.personel.DepartmanId)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(p=>p.personel.Maas)
+            @Html.TextBoxFor(p=>p.personel.Maas, new { @class = "form-control" })
+            @Html.ValidationMessageFor(p => p.personel.Maas)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(p=>p.personel.DogumTarihi)
+            @Html.TextBoxFor(p=>p.personel.DogumTarihi,"{0:yyyy-MM-dd}", new { @class = "form-control" ,type="date",onchange= "CheckDataTypeIsValid(this)" })
+            @Html.ValidationMessageFor(p =>p.personel.DogumTarihi )
+        </div>
+        <div class="radio">
+            <label>
+                @Html.RadioButtonFor(p => p.personel.Cinsiyet, true) Erkek
+                @Html.ValidationMessageFor(p => p.personel.Cinsiyet)
+            </label>
+            <label>
+                @Html.RadioButtonFor(p => p.personel.Cinsiyet, false) Kadın
+                @Html.ValidationMessageFor(p => p.personel.Cinsiyet)
+            </label>
+            <div class="checkbox">
+                <label>
+                    @Html.CheckBoxFor(p=>p.personel.EvliMi) Evliyseniz Seçiniz
+                    @Html.ValidationMessageFor(p => p.personel.EvliMi)
+                </label>
+            </div>
+            @Html.HiddenFor(p=>p.personel.Id)
+            <button type="submit" class="btn btn-default">Kaydet</button>
+        </div>
+        
+    }
+@section scripts
+
+{
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+}

@@ -1,0 +1,33 @@
+﻿@using EmployeeMVC.DAL
+    @model List<Departman>
+    @{
+        ViewBag.Title = "Index";
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+    <a class="btn btn-success" href="/Departmant/Kaydet">Yeni Departman</a>
+    <h2>Departman Listesi</h2>
+<table class="table table-bordered" id="tblDepertmanlar">
+    <thead>
+    <tr>
+        <td> ID</td>
+        <td> Ad</td>
+        <td> Güncelle</td>
+        <td> Sil</td>
+        <td> Personelleri Listele</td>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var departmant in Model)
+    {
+        <tr>
+            <td> @departmant.Id</td>
+            <td> @departmant.Ad</td>
+            <td> <a class="btn btn-primary" href="/Departmant/Guncelle/@departmant.Id">Güncelle</a></td>
+            <td> <a class="btn btn-danger" href="/Departmant/Sil/@departmant.Id">Sil</a></td>
+            <td> @Ajax.ActionLink("Personelleri Göster","PersonelleriListele","Personel",new {id=departmant.Id},
+                     new AjaxOptions {HttpMethod = "Get",UpdateTargetId = "personelListesi"},new {@class="btn btn-primary"})</td>
+        </tr>
+    }
+    </tbody>
+</table>
+<div id="personelListesi"></div>
